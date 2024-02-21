@@ -39,3 +39,10 @@ jobs:
                   cache: maven
             - name: Run Tests
               run: mvn test --file pom.xml
+    deploy:
+        runs-on: ubuntu-latest
+        needs: test
+
+        steps:
+            - name: Deploy to production
+              run: scp -r ./path/to/your/generated/artifacts user@your-server:/path/on/server
