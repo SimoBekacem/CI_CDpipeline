@@ -39,11 +39,3 @@ jobs:
                   cache: maven
             - name: Run Tests
               run: mvn test --file pom.xml
-
-    deploy:
-        runs-on: ubuntu-latest
-        needs: test
-
-        # steps:
-        # - name: Deploy to production
-        # Add your deployment steps here, e.g., deploying to a server or a cloud platform
