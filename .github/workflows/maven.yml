@@ -1,3 +1,11 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Java CI with Maven
 
 on:
@@ -9,6 +17,7 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v3
             - name: Set up JDK 17
@@ -17,10 +26,12 @@ jobs:
                   java-version: '17'
                   distribution: 'temurin'
                   cache: maven
-            - name: Compile with Maven
-              run: mvn -B clean compile --file pom.xml
-            - name: Test with Maven
-              run: mvn -B test --file pom.xml
+            - name: Build with Maven
+              run: mvn -B package --file pom.xml
+
+            # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
+            - name: Update dependency graph
+              uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
 
     test: # Optional test job
         runs-on: ubuntu-latest
@@ -35,6 +46,8 @@ jobs:
                   cache: maven
             - name: Run additional tests (if needed)
               run: mvn -B test -Dtest=your.specific.test.class # Customize as needed
+            - name: Update dependency graph
+              uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
 
     deploy: # Optional deploy job
         runs-on: ubuntu-latest
@@ -51,3 +64,5 @@ jobs:
               run: mvn -B package --file pom.xml # Skip if already done in build job
             - name: Deploy to target environment (e.g., AWS, Azure)
               uses: example-deployment-action@v1 # Replace with your deployment action
+            - name: Update dependency graph
+              uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
