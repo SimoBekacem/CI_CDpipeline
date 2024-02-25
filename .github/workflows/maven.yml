@@ -50,11 +50,17 @@ jobs:
 
     sonarcloud:
         runs-on: ubuntu-latest
-        needs: test
-
         steps:
-            - name: SonarCloud Scan
-              uses: sonarsource/sonarcloud-github-action@v3
+            - uses: actions/checkout@v3
               with:
-                  github-token: ${{ github.token }}
-                  sonar-token: ${{ secrets.SONAR_TOKEN }}
+                  fetch-depth: 0
+            - name: SonarCloud Scan
+              uses: sonarsource/sonarcloud-github-action@master
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+              with:
+                  args: >
+                      -Dsonar.organization=rekhugopal
+                      -Dsonar.projectKey=SonarCloudCodeAnalyisis
+                      -Dsonar.python.coverage.reportPaths=coverage.xml
