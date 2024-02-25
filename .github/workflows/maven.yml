@@ -56,5 +56,5 @@ jobs:
 
             - name: Run SonarCloud analysis
               env:
-                  SONAR_TOKEN: ${6d8981e4f32252aceb3e1d1b5ed85f7d0e96ef70}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               run: sonar-scanner
