@@ -46,3 +46,15 @@ jobs:
         steps:
             - name: Deploy to production
               run: echo "Deploy my app commands"
+    sonarcloud:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Install SonarCloud scanner
+              uses: SonarSource/sonarcloud-github-action@master
+
+            - name: Run SonarCloud analysis
+              env:
+                  SONAR_TOKEN: ${6d8981e4f32252aceb3e1d1b5ed85f7d0e96ef70}
+              run: sonar-scanner
