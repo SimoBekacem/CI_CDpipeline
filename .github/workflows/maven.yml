@@ -46,6 +46,7 @@ jobs:
         steps:
             - name: Deploy to production
               run: echo "Deploy my app commands"
+
     sonarcloud:
         runs-on: ubuntu-latest
         steps:
@@ -56,5 +57,5 @@ jobs:
             - name: SonarCloud Scan
               uses: sonarsource/sonarcloud-github-action@master
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ github.token }}
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
