@@ -24,7 +24,7 @@ jobs:
                   cache: maven
 
             - name: Build with Maven
-              run: mvn -B package --file CI_CDpipeline/pom.xml
+              run: mvn -B package --file pom.xml
 
             - name: Set up QEMU
               uses: docker/setup-qemu-action@v3
@@ -60,7 +60,7 @@ jobs:
                   cache: maven
 
             - name: Run Tests
-              run: mvn test --file CI_CDpipeline/pom.xml
+              run: mvn test --file pom.xml
 
     deploy:
         runs-on: ubuntu-latest
